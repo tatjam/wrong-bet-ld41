@@ -52,7 +52,16 @@ weak_ptr<Node> Node::getChildren(int index)
 
 weak_ptr<Node> Node::getChildren(std::string name)
 {
+	for (auto child : children)
+	{
+		if (child->getName() == name)
+		{
+			return child;
+		}
+	}
 
+	// Empty weak_ptr
+	return {};
 }
 
 
@@ -66,11 +75,26 @@ void Node::setName(std::string nName)
 	name = nName;
 }
 
-Node::Node()
+Node::Node(std::string name)
 {
+	setName(name);
+}
+
+void Node::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	// getTransform() inherited from sf::Transformable
+	states.transform *= getTransform();
+
+	render(target, states);
+
+	for (auto child : children)
+	{
+		target.draw(*child, states);
+	}
 }
 
 
 Node::~Node()
 {
+	//destroy();
 }

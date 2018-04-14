@@ -21,9 +21,15 @@
     <ClCompile Include="src\node\Node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\node\gfx\NSprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\node\Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\node\gfx\NSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
