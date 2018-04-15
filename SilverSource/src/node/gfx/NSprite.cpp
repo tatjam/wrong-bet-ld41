@@ -5,12 +5,19 @@ void NSprite::render(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(sprite, states);
 }
 
-NSprite::NSprite(std::string name)
-	: Node(name)
+NSprite::NSprite(std::string name) : NGraphic(name, 0)
 {
-	sprite = sf::RectangleShape(sf::Vector2f(10.0f, 10.0f));
-	sprite.setFillColor(sf::Color(name[0] * 50, name[0] * 50, name[0] * 50));
+	sprite = sf::Sprite();
 }
+
+NSprite::NSprite(std::string name, sf::Texture* tex) : NSprite(name, tex, 0) {}
+
+NSprite::NSprite(std::string name, sf::Texture* tex, int z) : NGraphic(name, z)
+{
+	sprite = sf::Sprite();
+	sprite.setTexture(*tex, true);
+}
+
 
 
 NSprite::~NSprite()

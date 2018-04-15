@@ -82,7 +82,6 @@ Node::Node(std::string name)
 
 void Node::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	// getTransform() inherited from sf::Transformable
 	states.transform *= getTransform();
 
 	render(target, states);
