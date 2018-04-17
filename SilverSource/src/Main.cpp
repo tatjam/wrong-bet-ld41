@@ -3,6 +3,7 @@
 
 #include "node/gfx/NSprite.h"
 #include "facility/AssetManager.h"
+#include "facility/GameManager.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -10,22 +11,34 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
 	AssetManager assets = AssetManager();
+	GameManager game = GameManager();
 
 	sf::Texture* tex = assets.getTexture("test.png").value();
-	sf::Texture* tex2 = assets.getTexture("test.png").value();
+	sf::Texture* tex2 = assets.getTexture("test2.png").value();
+	sf::Texture* tex3 = assets.getTexture("test3.png").value();
 
-	auto O = std::make_shared<Node>("origin");
-	auto A = std::make_shared<NSprite>("A", tex, 0);
-	auto B = std::make_shared<NSprite>("B", tex, 0);
-	auto C = std::make_shared<NSprite>("C", tex2, 0);
+	sf::Clock dtc;
+	sf::Time dtt;
+	float dt = 0.0f;
 
-	O->addChildren(A);
-	O->addChildren(C);
-	A->addChildren(B);
+	auto O = game.addNode<Node>({}, "Root");
 
-	A->move(30.0f, 0.0f);
-	B->move(0.0f, 30.0f);
-	C->move(60.0f, 60.0f);
+	int frame = 0;
+	
+	{
+		auto A = game.addNode<NSprite>({}, "A", tex);
+		auto B = game.addNode<NSprite>(A, "B", tex);
+		auto C = game.addNode<NSprite>(A, "B", tex);
+		auto D = game.addNode<NSprite>(A, "B", tex);
+
+		A->setPosition(100.0f, 0.0f); A->sprite.setColor(sf::Color::Red);
+		B->setPosition(0.0f, 50.0f); B->sprite.setColor(sf::Color::Blue);
+		C->setPosition(0.0f, 50.0f); C->sprite.setColor(sf::Color::Green);
+		D->setPosition(0.0f, 50.0f); D->sprite.setColor(sf::Color::White);
+
+
+	}
+
 
 	while (window.isOpen())
 	{
@@ -38,9 +51,17 @@ int main()
 
 		window.clear(sf::Color(50, 50, 50));
 
-		window.draw(*O);
+		game.draw(window);
 
 		window.display();
+
+		dtt = dtc.restart();
+		dt = dtt.asSeconds();
+
+		if(frame % 10 == 0)
+			std::cout << "FPS: " << 1.0f / dt << std::endl;
+
+		frame++;
 	}
 
 	return 0;

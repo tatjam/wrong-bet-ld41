@@ -27,10 +27,7 @@
     <ClCompile Include="src\facility\AssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\node\gfx\NGraphic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\facility\RenderManager.cpp">
+    <ClCompile Include="src\facility\GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,10 +44,10 @@
     <ClInclude Include="src\util\optional.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\node\gfx\NGraphic.h">
+    <ClInclude Include="src\node\NodeSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\facility\RenderManager.h">
+    <ClInclude Include="src\facility\GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

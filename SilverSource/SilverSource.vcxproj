@@ -123,19 +123,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\facility\RenderManager.cpp" />
-    <ClCompile Include="src\node\gfx\NGraphic.cpp" />
+    <ClCompile Include="src\facility\GameManager.cpp" />
     <ClCompile Include="src\facility\AssetManager.cpp" />
     <ClCompile Include="src\node\gfx\NSprite.cpp" />
     <ClCompile Include="src\node\Node.cpp" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\facility\RenderManager.h" />
-    <ClInclude Include="src\node\gfx\NGraphic.h" />
+    <ClInclude Include="src\facility\GameManager.h" />
     <ClInclude Include="src\facility\AssetManager.h" />
     <ClInclude Include="src\node\gfx\NSprite.h" />
     <ClInclude Include="src\node\Node.h" />
+    <ClInclude Include="src\node\NodeSort.h" />
     <ClInclude Include="src\util\optional.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

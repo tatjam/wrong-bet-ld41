@@ -1,7 +1,7 @@
 #pragma once
-#include "NGraphic.h"
+#include "../Node.h"
 
-class NSprite : public NGraphic
+class NSprite : public Node
 {
 private:
 
