@@ -33,8 +33,8 @@ int main()
 
 		A->setPosition(100.0f, 0.0f); A->sprite.setColor(sf::Color::Red);
 		B->setPosition(0.0f, 50.0f); B->sprite.setColor(sf::Color::Blue);
-		C->setPosition(0.0f, 50.0f); C->sprite.setColor(sf::Color::Green);
-		D->setPosition(0.0f, 50.0f); D->sprite.setColor(sf::Color::White);
+		C->setPosition(10.0f, 50.0f); C->sprite.setColor(sf::Color::Green);
+		D->setPosition(20.0f, 50.0f); D->sprite.setColor(sf::Color::White);
 
 
 	}
@@ -48,6 +48,8 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+
+		game.update();
 
 		window.clear(sf::Color(50, 50, 50));
 

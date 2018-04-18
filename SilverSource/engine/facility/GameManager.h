@@ -12,6 +12,7 @@
 // easily cause memory leaking.
 
 
+class Node;
 
 class GameManager
 {
@@ -32,12 +33,20 @@ private:
 
 	void lowAddNode(std::shared_ptr<Node> parent, std::shared_ptr<Node> node);
 
+
+
+	sf::Clock dtc;
+
 public:
+
+	uint64_t frame;
+	float dt;
 
 	void setDirty();
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default);
 
+	void update();
 
 	template <class T, class ...Args>
 	std::shared_ptr<T> addNode(std::shared_ptr<Node> parent, Args && ...args)

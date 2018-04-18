@@ -1,5 +1,4 @@
 #include "Node.h"
-#include "../facility/GameManager.h"
 
 void Node::setParent(shared_ptr<Node> node)
 {
@@ -18,6 +17,16 @@ void Node::addChildren(shared_ptr<Node> node)
 {
 	children.push_back(node);
 	node->setParent(shared_from_this());
+}
+
+void Node::updateEvent(GameManager* game)
+{
+	update(game);
+
+	for (auto child : children)
+	{
+		child->updateEvent(game);
+	}
 }
 
 void Node::deleteChildren(shared_ptr<Node> node)

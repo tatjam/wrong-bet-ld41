@@ -21,7 +21,6 @@ NSprite::NSprite(std::string name, sf::Texture* tex, int z) : Node(name)
 }
 
 
-
 NSprite::~NSprite()
 {
 }

@@ -4,6 +4,7 @@
 #include <memory>
 #include "SFML/System.hpp"
 #include "SFML/Graphics.hpp"
+#include "../facility/GameManager.h"
 
 using std::weak_ptr;
 using std::shared_ptr;
@@ -20,7 +21,6 @@ private:
 	sf::Transform tform;
 	int z = 0;
 
-	GameManager* game;
 
 	bool dirty = false;
 	bool alive = true;
@@ -55,6 +55,14 @@ public:
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	virtual void render(sf::RenderTarget& target, sf::RenderStates states) const {}
+
+	void updateEvent(GameManager* game);
+
+	// It's GUARANTEED that your parents will
+	// have updated before this is called. If you have
+	// no parents then you must be Root
+	// dt is in seconds
+	virtual void update(GameManager* game) {};
 
 	// Return true if a z-reorder is required
 	bool prepareDraw(sf::Transform parent);

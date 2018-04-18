@@ -7,6 +7,17 @@ void GameManager::setDirty()
 	dirty = true;
 }
 
+void GameManager::update()
+{
+	dt = dtc.restart().asSeconds();
+	frame++;
+
+	// Update timers
+	if (!root.expired())
+	{
+		root.lock()->updateEvent(this);
+	}
+}
 
 void GameManager::rebuildRenderList()
 {

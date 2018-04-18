@@ -123,19 +123,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\facility\GameManager.cpp" />
-    <ClCompile Include="src\facility\AssetManager.cpp" />
-    <ClCompile Include="src\node\gfx\NSprite.cpp" />
-    <ClCompile Include="src\node\Node.cpp" />
-    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="engine\facility\GameManager.cpp" />
+    <ClCompile Include="engine\facility\AssetManager.cpp" />
+    <ClCompile Include="engine\node\gfx\NSprite.cpp" />
+    <ClCompile Include="engine\node\Node.cpp" />
+    <ClCompile Include="engine\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\facility\GameManager.h" />
-    <ClInclude Include="src\facility\AssetManager.h" />
-    <ClInclude Include="src\node\gfx\NSprite.h" />
-    <ClInclude Include="src\node\Node.h" />
-    <ClInclude Include="src\node\NodeSort.h" />
-    <ClInclude Include="src\util\optional.h" />
+    <ClInclude Include="engine\facility\GameManager.h" />
+    <ClInclude Include="engine\facility\AssetManager.h" />
+    <ClInclude Include="engine\node\gfx\NSprite.h" />
+    <ClInclude Include="engine\node\Node.h" />
+    <ClInclude Include="engine\node\NodeSort.h" />
+    <ClInclude Include="engine\util\optional.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
