@@ -3,7 +3,9 @@
 #include <algorithm>
 #include <iostream>
 
+#include "SFML/Audio.hpp"
 #include "../node/Node.h"
+#include "AssetManager.h"
 
 
 // NOTE: You cannot remove a node here, remove it 
@@ -33,11 +35,13 @@ private:
 
 	void lowAddNode(std::shared_ptr<Node> parent, std::shared_ptr<Node> node);
 
-
-
 	sf::Clock dtc;
 
+	std::vector<sf::Sound> activeSounds;
+
 public:
+
+	AssetManager assets;
 
 	uint64_t frame;
 	float dt;
@@ -54,6 +58,14 @@ public:
 		auto node = std::make_shared<T>(std::forward<Args>(args)...);
 		lowAddNode(parent, node);
 		return node;
+	}
+
+	template <class T, class ...Args>
+	std::shared_ptr<Node> addScene(std::string name, std::shared_ptr<Node> parent, Args && ...args)
+	{
+		std::shared_ptr<Node> out;
+		std::make_shared<T>(this, name, parent, out, std::forward<Args>(args)...);
+		return out;
 	}
 
 

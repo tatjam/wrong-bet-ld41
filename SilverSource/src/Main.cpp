@@ -1,27 +1,26 @@
 #include <iostream>
 #include <string>
 
-#include "node/gfx/NSprite.h"
-#include "facility/AssetManager.h"
-#include "facility/GameManager.h"
+#include "engine/node/gfx/NSprite.h"
+#include "engine/facility/AssetManager.h"
+#include "engine/facility/GameManager.h"
+
+#include "engine/scene/Scene.h"
 
 #include <SFML/Graphics.hpp>
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	AssetManager assets = AssetManager();
+
 	GameManager game = GameManager();
 
-	sf::Texture* tex = assets.getTexture("test.png").value();
-	sf::Texture* tex2 = assets.getTexture("test2.png").value();
-	sf::Texture* tex3 = assets.getTexture("test3.png").value();
-
-	sf::Clock dtc;
-	sf::Time dtt;
-	float dt = 0.0f;
+	sf::Texture* tex = game.assets.getTexture("test.png").value();
+	sf::Texture* tex2 = game.assets.getTexture("test2.png").value();
+	sf::Texture* tex3 = game.assets.getTexture("test3.png").value();
 
 	auto O = game.addNode<Node>({}, "Root");
+
 
 	int frame = 0;
 	
@@ -38,7 +37,6 @@ int main()
 
 
 	}
-
 
 	while (window.isOpen())
 	{
@@ -57,13 +55,6 @@ int main()
 
 		window.display();
 
-		dtt = dtc.restart();
-		dt = dtt.asSeconds();
-
-		if(frame % 10 == 0)
-			std::cout << "FPS: " << 1.0f / dt << std::endl;
-
-		frame++;
 	}
 
 	return 0;

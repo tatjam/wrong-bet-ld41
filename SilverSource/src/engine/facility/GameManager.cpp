@@ -111,9 +111,10 @@ void GameManager::draw(sf::RenderTarget& target, sf::RenderStates states)
 	}
 }
 
+
 GameManager::GameManager()
 {
-
+	assets = AssetManager();
 }
 
 

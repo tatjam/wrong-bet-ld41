@@ -15,39 +15,42 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="engine\facility\AssetManager.cpp">
+    <ClCompile Include="src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="engine\facility\GameManager.cpp">
+    <ClCompile Include="src\engine\facility\AssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="engine\node\gfx\NSprite.cpp">
+    <ClCompile Include="src\engine\facility\GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="engine\node\Node.cpp">
+    <ClCompile Include="src\engine\node\gfx\NSprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="engine\Main.cpp">
+    <ClCompile Include="src\engine\node\Node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="engine\facility\AssetManager.h">
+    <ClInclude Include="src\engine\facility\AssetManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="engine\facility\GameManager.h">
+    <ClInclude Include="src\engine\facility\GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="engine\node\gfx\NSprite.h">
+    <ClInclude Include="src\engine\node\gfx\NSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="engine\node\Node.h">
+    <ClInclude Include="src\engine\node\Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="engine\node\NodeSort.h">
+    <ClInclude Include="src\engine\node\NodeSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="engine\util\optional.h">
+    <ClInclude Include="src\engine\util\optional.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\scene\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
