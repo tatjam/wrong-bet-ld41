@@ -123,20 +123,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\imgui\imgui-SFML.cpp" />
+    <ClCompile Include="src\engine\imgui\imgui.cpp" />
+    <ClCompile Include="src\engine\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\engine\node\gfx\NParticle.cpp" />
     <ClCompile Include="src\engine\facility\GameManager.cpp" />
     <ClCompile Include="src\engine\facility\AssetManager.cpp" />
     <ClCompile Include="src\engine\node\gfx\NSprite.cpp" />
     <ClCompile Include="src\engine\node\Node.cpp" />
+    <ClCompile Include="src\engine\util\UtilImpl.cpp" />
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\imgui\imconfig.h" />
+    <ClInclude Include="src\engine\imgui\imgui-SFML.h" />
+    <ClInclude Include="src\engine\imgui\imgui.h" />
+    <ClInclude Include="src\engine\imgui\imgui_internal.h" />
+    <ClInclude Include="src\engine\imgui\stb_rect_pack.h" />
+    <ClInclude Include="src\engine\imgui\stb_textedit.h" />
+    <ClInclude Include="src\engine\imgui\stb_truetype.h" />
+    <ClInclude Include="src\engine\node\gfx\NParticle.h" />
     <ClInclude Include="src\engine\facility\GameManager.h" />
     <ClInclude Include="src\engine\facility\AssetManager.h" />
     <ClInclude Include="src\engine\node\gfx\NSprite.h" />
     <ClInclude Include="src\engine\node\Node.h" />
     <ClInclude Include="src\engine\node\NodeSort.h" />
     <ClInclude Include="src\engine\scene\Scene.h" />
+    <ClInclude Include="src\engine\util\ColorUtil.h" />
     <ClInclude Include="src\engine\util\optional.h" />
+    <ClInclude Include="src\engine\util\RangeValues.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

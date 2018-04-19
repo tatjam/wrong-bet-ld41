@@ -9,8 +9,12 @@ void GameManager::setDirty()
 
 void GameManager::update()
 {
-	dt = dtc.restart().asSeconds();
+	auto dtt = dtc.restart();
+	dt = dtt.asSeconds();
+
 	frame++;
+
+	ImGui::SFML::Update(*target, dtt);
 
 	// Update timers
 	if (!root.expired())
@@ -109,12 +113,16 @@ void GameManager::draw(sf::RenderTarget& target, sf::RenderStates states)
 			}
 		}
 	}
+
+	ImGui::SFML::Render(target);
 }
 
 
-GameManager::GameManager()
+GameManager::GameManager(sf::RenderWindow* target)
 {
 	assets = AssetManager();
+	ImGui::SFML::Init(*target);
+	this->target = target;
 }
 
 

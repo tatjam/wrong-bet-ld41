@@ -7,6 +7,10 @@
 #include "../node/Node.h"
 #include "AssetManager.h"
 
+#include "../imgui/imgui.h"
+#include "../imgui/imgui-SFML.h"
+
+
 
 // NOTE: You cannot remove a node here, remove it 
 // by calling node->destroy. Keep in mind the node won't
@@ -39,6 +43,8 @@ private:
 
 	std::vector<sf::Sound> activeSounds;
 
+	sf::RenderWindow* target;
+
 public:
 
 	AssetManager assets;
@@ -69,7 +75,7 @@ public:
 	}
 
 
-	GameManager();
+	GameManager(sf::RenderWindow* target);
 	~GameManager();
 };
 

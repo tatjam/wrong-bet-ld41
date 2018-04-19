@@ -21,6 +21,9 @@ public:
 		auto child0 = game->addNode<Node>(root, "child0");
 		auto child1 = game->addNode<Node>(root, "child1");
 
+		// Do wathever we want with the nodes,
+		// get them on running state
+
 		outRoot = root;
 	}
 };
