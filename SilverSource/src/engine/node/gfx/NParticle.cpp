@@ -12,6 +12,18 @@ void NParticle::setMaxParticles(size_t n)
 void NParticle::updateParticle(Particle* p, float dt)
 {
 	p->pos += p->vel * dt;
+	p->vel += constAccel * dt;
+	p->vel -= normalizevec(p->vel) * this->drag * dt;
+
+	if (p->angSpeed > 0.0f)
+	{
+		p->angSpeed -= this->angularDrag * dt;
+	}
+	else
+	{
+		p->angSpeed += this->angularDrag * dt;
+	}
+
 	p->angle += p->angSpeed * dt;
 	p->life -= dt;
 
@@ -51,19 +63,27 @@ void NParticle::spawnParticle(Particle* p)
 	p->endColor = endColor();
 	p->colorChange = colorChange();
 
+	if (!local)
+	{
+		p->pos = tform.transformPoint(p->pos);
+	}
+
 }
 
 
 
 void NParticle::update(GameManager* game)
 {
+	setPosition(std::sinf(game->time) * 200.0f + 50.0f, 64.0f);
+
 	int alive = 0;
 	int toSpawn = 0;
 	spawnTimer -= game->dt;
 	if (spawnTimer <= 0.0f)
 	{
-		toSpawn = std::round(std::abs(spawnTimer) / spawnTime + 1.0f);
-		spawnTimer = spawnTime;
+		float sTime = spawnTime();
+		toSpawn = std::round(std::abs(spawnTimer) / sTime + 1.0f);
+		spawnTimer = sTime;
 	}
 
 	if (active)
@@ -86,13 +106,14 @@ void NParticle::update(GameManager* game)
 		}
 	}
 
-	std::cout << "Alive: " << alive << std::endl;
+	//std::cout << "Alive: " << alive << std::endl;
 }
 
 void NParticle::render(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	sf::Sprite drawer = sf::Sprite();
 	drawer.setTexture(*tex);
+	drawer.setOrigin((sf::Vector2f)tex->getSize() * 0.5f);
 
 	for (size_t i = 0; i < particles.size(); i++)
 	{
@@ -101,7 +122,14 @@ void NParticle::render(sf::RenderTarget& target, sf::RenderStates states) const
 			drawer.setPosition(particles[i].pos);
 			drawer.setRotation(particles[i].angle);
 			drawer.setColor(particles[i].color);
-			target.draw(drawer, states);
+			if (!local)
+			{
+				target.draw(drawer);
+			}
+			else
+			{
+				target.draw(drawer, states);
+			}
 		}
 	}
 }
@@ -114,13 +142,18 @@ NParticle::NParticle(std::string name, size_t particles, sf::Texture* tex) : Nod
 	midColor(sf::Color(255, 0, 0), sf::Color(255, 0, 0)),
 	endColor(sf::Color(255, 0, 255, 0), sf::Color(255, 0, 255, 0)),
 	colorChange(0.4f, 0.6f),
-	maxLife(4.0f, 5.0f)
+	maxLife(4.0f, 5.0f),
+	spawnTime(0.08f, 0.18f)
 {
 	setMaxParticles(particles);
 
 	this->tex = tex;
-	this->spawnTime = 0.1f;
 	this->active = true;
+
+	this->drag = 1.0f;
+	this->angularDrag = 1.0f;
+
+	this->constAccel = sf::Vector2f(0.0f, 9.0f);
 
 	setZ(-100);
 }

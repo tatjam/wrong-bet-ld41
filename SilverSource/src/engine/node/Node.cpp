@@ -21,11 +21,20 @@ void Node::addChildren(shared_ptr<Node> node)
 
 void Node::updateEvent(GameManager* game)
 {
-	update(game);
-
-	for (auto child : children)
+	if(doUpdate)
+		update(game);
+	
+	if (showEditor)
 	{
-		child->updateEvent(game);
+		doEditorBase();
+	}
+
+	if (propagateUpdate)
+	{
+		for (auto child : children)
+		{
+			child->updateEvent(game);
+		}
 	}
 }
 
@@ -153,7 +162,8 @@ void Node::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	sf::RenderStates nStates = states.transform * tform;
 
-	render(target, nStates);
+	if(doDraw)
+		render(target, nStates);
 
 	for (auto child : children)
 	{
@@ -183,6 +193,114 @@ bool Node::prepareDraw(sf::Transform parent)
 	return result;
 }
 
+std::string Node::getFullPath()
+{
+	std::string out;
+
+	Node* n =  this;
+	while (n != NULL)
+	{
+		out.insert(0, n->name);
+		n = n->parent;
+		if (n != NULL)
+		{
+			out.insert(0, "/");
+		}
+	}
+	return out;
+}
+
+void Node::doEditorBase()
+{
+	bool open;
+
+	std::string parName = getFullPath();
+
+	ImGui::Begin(std::string("Node (" + parName + ")").c_str(), &open, sf::Vector2f(256.0f, 256.0f));
+
+	if (!open)
+	{
+		showEditor = false;
+	}
+
+
+	float pos[2]; pos[0] = getPosition().x; pos[1] = getPosition().y;
+	ImGui::InputFloat2("pos", pos, 2);
+	setPosition(pos[0], pos[1]);
+
+	float org[2]; org[0] = getOrigin().x; org[1] = getOrigin().y;
+	ImGui::InputFloat2("origin", org, 2);
+	setOrigin(org[0], org[1]);
+
+	float scl[2]; scl[0] = getScale().x; scl[1] = getScale().y;
+	ImGui::InputFloat2("scl", scl, 2);
+	setScale(scl[0], scl[1]);
+
+	float rot; rot = getRotation();
+	ImGui::InputFloat("rot", &rot, 2);
+	setRotation(rot);
+
+	bool update = doUpdate; 
+	bool propagate = propagateUpdate;
+	ImGui::Checkbox("update", &update);
+	ImGui::SameLine();
+	ImGui::Checkbox("propagate", &propagate);
+	doUpdate = update;
+	propagateUpdate = propagate;
+
+
+	bool draw = doDraw;
+	ImGui::Checkbox("draw", &draw);
+	doDraw = draw;
+
+	int z = getZ();
+	ImGui::InputInt("z", &z);
+	if (z != getZ()) { setZ(z); }
+
+	ImGui::Separator();
+
+	if (ImGui::Button("Parent"))
+	{
+		if (parent != NULL)
+		{
+			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+			{
+				showEditor = false;
+			}
+
+			parent->showEditor = true;
+		}
+	}
+
+	ImGui::BeginChildFrame(1, sf::Vector2f(0.0f, 50.0f));
+
+	// Children 
+	for (size_t i = 0; i < children.size(); i++)
+	{
+		ImGui::PushID(std::to_string(i).c_str());
+		if (ImGui::Button(children[i]->name.c_str()))
+		{
+			if (!sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+			{
+				showEditor = false;
+			}
+
+			children[i]->showEditor = true;
+		}
+		ImGui::SameLine();
+		ImGui::PopID();
+	}
+
+	ImGui::EndChildFrame();
+
+
+
+
+
+	doEditor();
+
+	ImGui::End();
+}
 
 Node::Node(std::string name)
 {
@@ -193,6 +311,7 @@ Node::Node(std::string name)
 
 	setZ(0);
 
+	this->showEditor = false;
 }
 
 Node::~Node()

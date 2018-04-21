@@ -51,10 +51,17 @@ public:
 
 	uint64_t frame;
 	float dt;
+	float time;
+
+	std::weak_ptr<Node> getRoot();
+
+	sf::View view;
 
 	void setDirty();
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states = sf::RenderStates::Default);
+
+	void handleResize(sf::Vector2f newSize);
 
 	void update();
 

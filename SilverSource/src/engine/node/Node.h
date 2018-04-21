@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 #include <memory>
 #include "SFML/System.hpp"
@@ -18,14 +19,20 @@ private:
 	std::vector<shared_ptr<Node>> children;
 	Node* parent;
 	std::string name;
-	sf::Transform tform;
+
 	int z = 0;
 
 
 	bool dirty = false;
 	bool alive = true;
 
+	bool doUpdate = true;
+	bool propagateUpdate = true;
+	bool doDraw = true;
+
 public:
+
+	sf::Transform tform;
 
 	bool isAlive();
 
@@ -39,10 +46,12 @@ public:
 	shared_ptr<Node> getChildren(int index);
 	shared_ptr<Node> getChildren(std::string name);
 
-
+	bool showEditor = false;
 
 	std::string getName();
 	void setName(std::string nName);
+
+	std::string getFullPath();
 
 	// Destroys the node, if soft is false it will
 	// also destroy all children nodes, if it's not
@@ -66,6 +75,9 @@ public:
 
 	// Return true if a z-reorder is required
 	bool prepareDraw(sf::Transform parent);
+
+	void doEditorBase();
+	virtual void doEditor() {};
 
 	Node(std::string name);
 	~Node();

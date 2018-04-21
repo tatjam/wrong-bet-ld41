@@ -13,8 +13,15 @@ void GameManager::update()
 	dt = dtt.asSeconds();
 
 	frame++;
+	time += dt;
 
 	ImGui::SFML::Update(*target, dtt);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::BackSlash))
+	{
+		auto rootL = root.lock();
+		if (rootL) { rootL->showEditor = true; }
+	}
 
 	// Update timers
 	if (!root.expired())
@@ -68,9 +75,17 @@ void GameManager::lowAddNode(std::shared_ptr<Node> parent, std::shared_ptr<Node>
 	}
 }
 
+std::weak_ptr<Node> GameManager::getRoot()
+{
+	return root;
+}
+
 
 void GameManager::draw(sf::RenderTarget& target, sf::RenderStates states)
 {
+	// TODO: Maybe don't do this?
+	target.setView(view);
+
 	// Prepare transforms
 	if (root.expired())
 	{
@@ -117,12 +132,24 @@ void GameManager::draw(sf::RenderTarget& target, sf::RenderStates states)
 	ImGui::SFML::Render(target);
 }
 
+void GameManager::handleResize(sf::Vector2f siz)
+{
+	this->view.setSize(siz.x, siz.y);
+}
 
 GameManager::GameManager(sf::RenderWindow* target)
 {
 	assets = AssetManager();
 	ImGui::SFML::Init(*target);
+
 	this->target = target;
+	this->dt = 0.0f;
+	this->time = 0.0f;
+	this->frame = 0;
+
+	sf::Vector2f siz = (sf::Vector2f)target->getSize();
+	this->view = sf::View(sf::Vector2f(siz.x / 2.0f, siz.y / 2.0), siz);
+
 }
 
 

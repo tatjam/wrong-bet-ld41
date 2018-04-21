@@ -3,6 +3,7 @@
 
 #include "engine/node/gfx/NParticle.h"
 #include "engine/node/gfx/NSprite.h"
+#include "engine/node/gfx/NTilemap.h"
 #include "engine/facility/AssetManager.h"
 #include "engine/facility/GameManager.h"
 
@@ -14,7 +15,7 @@ int main()
 {
 	srand(time(NULL));
 
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(512, 512), "SFML works!");
 	window.setFramerateLimit(80);
 
 	GameManager game = GameManager(&window);
@@ -23,17 +24,18 @@ int main()
 	sf::Texture* tex2 = game.assets.getTexture("test2.png").value();
 	sf::Texture* tex3 = game.assets.getTexture("test3.png").value();
 	sf::Texture* smokeTex = game.assets.getTexture("smoke.png").value();
+	sf::Texture* tilesTex = game.assets.getTexture("shadetiles8x8.png").value();
 
 	auto O = game.addNode<Node>({}, "Root");
 
 
-	int frame = 0;
-	
 	{
 		auto A = game.addNode<NSprite>({}, "A", tex);
 		auto B = game.addNode<NSprite>(A, "B", tex);
 		auto C = game.addNode<NSprite>(A, "B", tex);
 		auto D = game.addNode<NParticle>(A, "B", 100, smokeTex);
+		auto T = game.addNode<NTilemap>({}, "Tilemap", tilesTex, sf::Vector2u( 4, 4 ));
+		T->load(loadStringFromFile("res/tiles.csv"));
 
 		A->setPosition(100.0f, 0.0f); A->sprite.setColor(sf::Color::Red);
 		B->setPosition(0.0f, 50.0f); B->sprite.setColor(sf::Color::Blue);
@@ -51,8 +53,11 @@ int main()
 		{
 			ImGui::SFML::ProcessEvent(event);
 
-			if (event.type == sf::Event::Closed)
-				window.close();
+			if (event.type == sf::Event::Closed) { window.close(); }
+			if (event.type == sf::Event::Resized)
+			{
+				game.handleResize(sf::Vector2f(event.size.width, event.size.height));
+			}
 		}
 
 		game.update();

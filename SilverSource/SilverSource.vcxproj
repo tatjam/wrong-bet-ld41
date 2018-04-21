@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\node\gfx\NTilemap.cpp" />
     <ClCompile Include="src\engine\imgui\imgui-SFML.cpp" />
     <ClCompile Include="src\engine\imgui\imgui.cpp" />
     <ClCompile Include="src\engine\imgui\imgui_draw.cpp" />
@@ -135,6 +136,7 @@
     <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\node\gfx\NTilemap.h" />
     <ClInclude Include="src\engine\imgui\imconfig.h" />
     <ClInclude Include="src\engine\imgui\imgui-SFML.h" />
     <ClInclude Include="src\engine\imgui\imgui.h" />
@@ -152,6 +154,8 @@
     <ClInclude Include="src\engine\util\ColorUtil.h" />
     <ClInclude Include="src\engine\util\optional.h" />
     <ClInclude Include="src\engine\util\RangeValues.h" />
+    <ClInclude Include="src\engine\util\StringUtil.h" />
+    <ClInclude Include="src\engine\util\VectorUtil.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

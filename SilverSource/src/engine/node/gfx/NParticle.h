@@ -2,6 +2,7 @@
 #include "../Node.h"
 #include "../../util/RangeValues.h"
 #include "../../util/ColorUtil.h"
+#include "../../util/VectorUtil.h"
 
 struct Particle
 {
@@ -38,7 +39,7 @@ public:
 
 	bool active = true;
 	// Every how many seconds does a particle spawn
-	float spawnTime = 0.2f;
+	RangeFloat spawnTime;
 	// If we move the node, will particles move?
 	bool local = false;
 	RangeFloat maxLife;
@@ -51,6 +52,11 @@ public:
 
 	RangeVector2f initialSpeed;
 	RangeFloat initialAngSpeed;
+
+	float drag;
+	float angularDrag;
+
+	sf::Vector2f constAccel;
 
 
 	size_t getMaxParticles() { return maxParticles; }
