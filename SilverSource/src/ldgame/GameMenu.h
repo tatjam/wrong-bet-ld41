@@ -9,6 +9,7 @@ public:
 	float fadeIn2;
 
 	int selectedMap = 0;
+	int difficulty = 1;
 
 	void init(GameManager* game, bool reset = false)
 	{
@@ -30,6 +31,7 @@ public:
 		}
 
 		selectedMap = 0;
+		difficulty = 1;
 
 	}
 
@@ -59,7 +61,7 @@ public:
 					+ window.getSize().x * 0.45f;
 
 				float pxPos = xPos + (42 * (xscale + 1) * 2.36f);
-				float pyPos = window.getSize().y * 0.7f;
+				float pyPos = window.getSize().y * 0.78f;
 
 
 				if (mx >= pxPos && mx <= pxPos + (80 * xscale))
@@ -70,7 +72,7 @@ public:
 					}
 				}
 
-				for (int i = 0; i < 3; i++)
+				for (int i = 0; i < 2; i++)
 				{
 					xPos += (42 + 10) * (xscale + 1.0f);
 					float yPos = window.getSize().y * 0.50f;
@@ -83,9 +85,31 @@ public:
 						}
 					}
 
+					xPos += (42 + 10) * (xscale + 1.0f);
+
 				}
 
-				
+				xPos = window.getSize().x - ((1.0f - fadeIn2) * window.getSize().x)
+					+ window.getSize().x * 0.45f;
+				// Difficulty checkboxes
+				for (int i = 0; i < 3; i++)
+				{
+					float xcPos;
+					if (i == 0) { xcPos = xPos + (42 * (xscale + 1) * 1.25f); }
+					if (i == 1) { xcPos = xPos + (42 * (xscale + 1) * 2.35f); }
+					if (i == 2) { xcPos = xPos + (42 * (xscale + 1) * 3.75f); }
+					float ycPos = window.getSize().y * 0.7f;
+
+					float cScale = window.getSize().y / 450.0f;
+
+					if (mx >= xcPos && mx <= xcPos + 16 * cScale)
+					{
+						if (my >= ycPos && my <= ycPos + 16 * cScale)
+						{
+							difficulty = i;
+						}
+					}
+				}
 
 
 				fadeIn = 0.0f;
@@ -138,11 +162,42 @@ public:
 
 		drawer.setTexture(*game->assets.getTexture("menu/play.png").value(), true);
 		drawer.setScale(window.getSize().y / 450.0f, window.getSize().y / 450.0f);
-		drawer.setPosition(xPos + (42 * (xscale + 1) * 2.36f), window.getSize().y * 0.7f);
+		drawer.setPosition(xPos + (42 * (xscale + 1) * 2.36f), window.getSize().y * 0.78f);
 		window.draw(drawer);
 
 
 		for (int i = 0; i < 3; i++)
+		{
+			sf::Texture* ctex = (i == difficulty)
+				? game->assets.getTexture("gui/checkbox/son.png").value()
+				: game->assets.getTexture("gui/checkbox/soff.png").value();
+
+			float xcPos;
+			if (i == 0) { xcPos = xPos + (42 * (xscale + 1) * 1.25f);}
+			if (i == 1) { xcPos = xPos + (42 * (xscale + 1) * 2.35f); }
+			if(i == 2) { xcPos = xPos + (42 * (xscale + 1) * 3.75f); }
+
+			drawer.setTexture(*ctex, true);
+			drawer.setScale(window.getSize().y / 450.0f, window.getSize().y / 450.0f);
+			drawer.setPosition(xcPos, window.getSize().y * 0.7f);
+			window.draw(drawer);
+		}
+
+		text.setPosition(xPos + (42 * (xscale + 1) * 1.25f), window.getSize().y * 0.71f);
+		text.setString("  Easy");
+		window.draw(text);
+
+		text.setPosition(xPos + (42 * (xscale + 1) * 2.35f), window.getSize().y * 0.71f);
+		text.setString("  Normal");
+		window.draw(text);
+
+
+		text.setPosition(xPos + (42 * (xscale + 1) * 3.75f), window.getSize().y * 0.71f);
+		text.setString("  Hard");
+		window.draw(text);
+
+
+		for (int i = 0; i < 2; i++)
 		{
 
 			xPos += (42 + 10) * (xscale + 1.0f);
@@ -166,6 +221,8 @@ public:
 			drawer.move(5 * (xscale + 1), 5 * (xscale + 1));
 
 			window.draw(drawer);
+
+			xPos += (42 + 10) * (xscale + 1.0f);
 
 		}
 

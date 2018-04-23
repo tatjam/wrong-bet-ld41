@@ -491,7 +491,7 @@ sf::Vector2f NKart::getTarget(NTrack* track)
 }
 
 
-NKart::NKart(std::string name, sf::Texture* tex, bool isPlayer) : NSprite(name, tex)
+NKart::NKart(std::string name, sf::Texture* tex, bool isPlayer, int difficulty) : NSprite(name, tex)
 {
 	this->isPlayer = isPlayer;
 
@@ -502,9 +502,26 @@ NKart::NKart(std::string name, sf::Texture* tex, bool isPlayer) : NSprite(name, 
 	this->motor = 0.0f;
 	this->curLevel = 0;
 	this->curWaypoint = 0;
-	this->handling = isPlayer ? 530.0f : 550.0f;
-	this->reactibility = isPlayer ? 520.0f : 550.0f;
-	this->health = isPlayer ? 100.0f : 120.0f;
+
+	if (difficulty == 0)
+	{
+		this->handling = 530.0f;
+		this->reactibility = 520.0f;
+		this->health = isPlayer ? 110.0f : 100.0f;
+	}
+	else if (difficulty == 1)
+	{
+		this->handling = isPlayer ? 530.0f : 550.0f;
+		this->reactibility = isPlayer ? 520.0f : 550.0f;
+		this->health = isPlayer ? 100.0f : 120.0f;
+	}
+	else
+	{
+		this->handling = isPlayer ? 520.0f : 550.0f;
+		this->reactibility = isPlayer ? 520.0f : 560.0f;
+		this->health = isPlayer ? 80.0f : 140.0f;
+	}
+
 	this->gunAttached = false;
 	this->shots = 0;
 

@@ -91,7 +91,7 @@ public:
 		else if (num == 1)
 		{
 			//Mine
-			return 0.3f;
+			return 0.35f;
 		}
 		else if (num == 2)
 		{
@@ -101,12 +101,12 @@ public:
 		else if (num == 3)
 		{
 			// Healer
-			return 0.5f;
+			return 0.56f;
 		}
 		else if (num == 4)
 		{
 			// Gun
-			return 0.3f;
+			return 0.4f;
 		}
 		else
 		{

@@ -63,7 +63,7 @@ public:
 		NSprite::destroy();
 	}
 
-	NKart(std::string name, sf::Texture* tex, bool isPlayer);
+	NKart(std::string name, sf::Texture* tex, bool isPlayer, int difficulty);
 	~NKart();
 };
 

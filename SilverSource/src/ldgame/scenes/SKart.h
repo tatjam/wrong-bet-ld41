@@ -4,13 +4,14 @@
 class SKart
 {
 public:
-	SKart(GameManager* game, std::string name, std::shared_ptr<Node> parent, std::shared_ptr<Node>& outRoot, bool blue)
+	SKart(GameManager* game, std::string name, std::shared_ptr<Node> parent, std::shared_ptr<Node>& outRoot, bool blue,
+		int difficulty)
 	{
 		sf::Texture* kart = ((blue) ? game->assets.getTexture("kart/blue.png").value()
 			: game->assets.getTexture("kart/red.png").value());
 
 
-		auto root = game->addNode<NKart>(parent, name, kart, blue);
+		auto root = game->addNode<NKart>(parent, name, kart, blue, difficulty);
 		auto wheels = game->addNode<NSprite>(root, "wheels", game->assets.getTexture("kartwheels.png").value());
 		auto smoke = game->addNode<NParticle>(root, "smoke", 100, game->assets.getTexture("particle/smoke.png").value());
 		root->center();

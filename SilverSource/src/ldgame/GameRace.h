@@ -27,7 +27,9 @@ public:
 	float fade = 0.0f;
 	int status;
 
-	void init(GameManager* game, int trackNum)
+	int difficulty;
+
+	void init(GameManager* game, int trackNum, int difficulty)
 	{
 		status = 0;
 		fade = 0.0f;
@@ -65,8 +67,11 @@ public:
 		trackSprtO->sprite.setColor(sf::Color(255, 255, 255, 255));
 		trackSprtO->setOrigin(65 + 256, 65 + 256);
 
-		player.spawn(game, track);
-		enemy.spawn(game, track);
+		player.spawn(game, track, difficulty);
+		enemy.spawn(game, track, difficulty);
+
+		this->difficulty = difficulty;
+		this->mana = 0.0f;
 
 	}
 
@@ -209,7 +214,11 @@ public:
 			if (mana < 1.0f)
 			{
 				// Every 20 seconds the mana bar refills
-				mana += game->dt * 0.07f;
+				float increase = 0.07f;
+				if (difficulty == 0) { increase = 0.12f; }
+				if (difficulty == 1) { increase = 0.07f; }
+				if (difficulty == 2) { increase = 0.05f; }
+				mana += game->dt * increase;
 				if (mana > 1.0f) { mana = 1.0f; }
 			}
 		}
@@ -286,8 +295,8 @@ public:
 		player.karts.clear();
 		enemy.karts.clear();
 
-		root->destroy();
 		track = {};
+		root->destroy();
 		music->stop();
 	}
 

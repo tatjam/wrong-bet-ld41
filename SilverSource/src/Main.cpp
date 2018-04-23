@@ -22,7 +22,7 @@ int main()
 {
 	srand(time(NULL));
 
-	sf::RenderWindow window(sf::VideoMode(768, 512), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(1366, 768), "Wrong Bet LD41 Jam");
 	window.setFramerateLimit(80);
 
 	GameManager game = GameManager(&window);
@@ -94,7 +94,7 @@ int main()
 			if (menu.update(&game, window))
 			{
 				menu.finish();
-				race.init(&game, menu.selectedMap);
+				race.init(&game, menu.selectedMap, menu.difficulty);
 				inRace = true;
 			}
 		}
