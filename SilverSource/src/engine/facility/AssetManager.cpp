@@ -60,6 +60,37 @@ optional<sf::Texture*> AssetManager::getTexture(std::string name)
 	}
 }
 
+optional<sf::Image*>  AssetManager::loadImage(std::string name)
+{
+	std::cout << "[INFO: AssetManager -> loadImage] Loading: " << name << "...";
+
+	sf::Image out;
+	if (!out.loadFromFile("res/" + name))
+	{
+		return {};
+	}
+	else
+	{
+		std::cout << "OK" << std::endl;;
+		images[name] = out;
+		return &images[name];
+	}
+}
+
+optional<sf::Image*> AssetManager::getImage(std::string name)
+{
+	auto it = images.find(name);
+	if (it != images.end())
+	{
+		return std::experimental::make_optional(&it->second);
+	}
+	else
+	{
+		return loadImage(name);
+	}
+}
+
+
 AssetManager::AssetManager()
 {
 }

@@ -26,11 +26,14 @@ private:
 	bool dirty = false;
 	bool alive = true;
 
+
+public:
+
 	bool doUpdate = true;
 	bool propagateUpdate = true;
 	bool doDraw = true;
 
-public:
+	GameManager* game;
 
 	sf::Transform tform;
 
@@ -49,7 +52,7 @@ public:
 	bool showEditor = false;
 
 	std::string getName();
-	void setName(std::string nName);
+	void setName(std::string& nName);
 
 	std::string getFullPath();
 
@@ -63,6 +66,7 @@ public:
 	void setZ(int n);
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	// Only override ``render`` for normal purposes
 	virtual void render(sf::RenderTarget& target, sf::RenderStates states) const {}
 
 	void updateEvent(GameManager* game);

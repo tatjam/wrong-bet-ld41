@@ -21,19 +21,23 @@ void Node::addChildren(shared_ptr<Node> node)
 
 void Node::updateEvent(GameManager* game)
 {
-	if(doUpdate)
-		update(game);
-	
-	if (showEditor)
+	if (isAlive())
 	{
-		doEditorBase();
-	}
+		if (doUpdate)
+			update(game);
 
-	if (propagateUpdate)
-	{
-		for (auto child : children)
+		if (showEditor)
 		{
-			child->updateEvent(game);
+			doEditorBase();
+		}
+
+		if (propagateUpdate)
+		{
+			auto childrenCopy = children;
+			for (auto child : childrenCopy)
+			{
+				child->updateEvent(game);
+			}
 		}
 	}
 }
@@ -42,7 +46,11 @@ void Node::deleteChildren(shared_ptr<Node> node)
 {
 	for (size_t i = 0; i < children.size(); i++)
 	{
-		if (children[i] == node)
+		if (!children[i])
+		{
+			children.erase(children.begin() + i);
+		}
+		else if (children[i] == node)
 		{
 			children.erase(children.begin() + i);
 		}
@@ -127,7 +135,7 @@ std::string Node::getName()
 	return name;
 }
 
-void Node::setName(std::string nName)
+void Node::setName(std::string& nName)
 {
 	// Make our name valid checking across brothers
 	if (parent != NULL)
@@ -165,11 +173,11 @@ void Node::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	if(doDraw)
 		render(target, nStates);
 
-	for (auto child : children)
-	{
+	//for (auto child : children)
+	//{
 		// NOTE: We keep the original states
-		target.draw(*child, states);
-	}
+	//	target.draw(*child, states);
+	//}
 }
 
 bool Node::prepareDraw(sf::Transform parent)

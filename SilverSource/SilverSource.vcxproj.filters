@@ -48,6 +48,18 @@
     <ClCompile Include="src\engine\node\gfx\NTilemap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ldgame\nodes\NKart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ldgame\nodes\NTrack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\engine\node\snd\NQuickSound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ldgame\facility\Team.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\facility\AssetManager.h">
@@ -110,5 +122,93 @@
     <ClInclude Include="src\engine\util\StringUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ldgame\nodes\NKart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ldgame\nodes\NTrack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ldgame\scenes\SKart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\node\snd\NQuickSound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ldgame\facility\Team.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ldgame\nodes\NFlash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ldgame\gui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ldgame\GodAttack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ldgame\nodes\NBullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ldgame\nodes\NMine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ldgame\nodes\NFire.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ldgame\GameMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ldgame\GameRace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\kart0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\kartwheels.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\shadetiles8x8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\smoke.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\test.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\test2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\test3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\track0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\track2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\track2c.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\track2o.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\particle\explode.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\test.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\sound\explosion0.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\tiles.csv" />
   </ItemGroup>
 </Project>

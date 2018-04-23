@@ -9,6 +9,12 @@ void GameManager::setDirty()
 
 void GameManager::update()
 {
+	if (firstUpdate)
+	{
+		dtc.restart();
+		firstUpdate = false;
+	}
+
 	auto dtt = dtc.restart();
 	dt = dtt.asSeconds();
 
@@ -17,16 +23,45 @@ void GameManager::update()
 
 	ImGui::SFML::Update(*target, dtt);
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::BackSlash))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::BackSlash)
+		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift))
 	{
 		auto rootL = root.lock();
 		if (rootL) { rootL->showEditor = true; }
 	}
 
-	// Update timers
-	if (!root.expired())
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::BackSlash) 
+		&& sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift))
 	{
-		root.lock()->updateEvent(this);
+		if (!uiToolbarHeld)
+		{
+			uiToolbar = !uiToolbar;
+			uiToolbarHeld = true;
+		}
+	}
+	else
+	{
+		uiToolbarHeld = false;
+	}
+	
+	// This is due to our shitty 
+	// variable time-step physics engine
+	if (dt >= 0.2f)
+	{
+		std::cout << "[WARN: GameManager -> update] DeltaTime very high (" << dt << "), not updating!" << std::endl;
+	}
+	else
+	{
+		// Update timers
+		if (!root.expired())
+		{
+			root.lock()->updateEvent(this);
+		}
+	}
+
+	if (uiToolbar)
+	{
+		doUiToolbar();
 	}
 }
 
@@ -55,6 +90,8 @@ void GameManager::lowAddNode(std::shared_ptr<Node> parent, std::shared_ptr<Node>
 {
 	//nodes.push_back(node);
 	renderList.push_back(node);
+	node->game = this;
+
 	setDirty();
 
 	if(parent)
@@ -146,12 +183,22 @@ GameManager::GameManager(sf::RenderWindow* target)
 	this->dt = 0.0f;
 	this->time = 0.0f;
 	this->frame = 0;
+	this->uiToolbar = false;
+	this->firstUpdate = true;
 
 	sf::Vector2f siz = (sf::Vector2f)target->getSize();
 	this->view = sf::View(sf::Vector2f(siz.x / 2.0f, siz.y / 2.0), siz);
 
 }
 
+void GameManager::doUiToolbar()
+{
+	if (ImGui::BeginMainMenuBar())
+	{
+		ImGui::LabelText("", "FPS: %f", 1.0f / dt);
+		ImGui::EndMainMenuBar();
+	}
+}
 
 GameManager::~GameManager()
 {

@@ -51,8 +51,8 @@ void NParticle::updateParticle(Particle* p, float dt)
 
 void NParticle::spawnParticle(Particle* p)
 {
-	p->life = 10.0f;
-	p->startLife = 10.0f;
+	p->life = maxLife();
+	p->startLife = maxLife();
 	p->pos = { 0.0f, 0.0f };
 	p->vel = initialSpeed();
 	p->angSpeed = initialAngSpeed();
@@ -74,10 +74,11 @@ void NParticle::spawnParticle(Particle* p)
 
 void NParticle::update(GameManager* game)
 {
-	setPosition(std::sinf(game->time) * 200.0f + 50.0f, 64.0f);
+	livedSoFar += game->dt;
 
-	int alive = 0;
-	int toSpawn = 0;
+
+	particleCount = 0;
+	size_t toSpawn = 0;
 	spawnTimer -= game->dt;
 	if (spawnTimer <= 0.0f)
 	{
@@ -86,6 +87,9 @@ void NParticle::update(GameManager* game)
 		spawnTimer = sTime;
 	}
 
+	if (time > 0.0f && livedSoFar > time)
+		toSpawn = 0;
+
 	if (active)
 	{
 		for (size_t i = 0; i < particles.size(); i++)
@@ -93,11 +97,11 @@ void NParticle::update(GameManager* game)
 			if (particles[i].life > 0.0f)
 			{
 				updateParticle(&particles[i], game->dt);
-				alive++;
+				particleCount++;
 			}
 			else
 			{
-				for (size_t j = 0; j < toSpawn; j++)
+				if(toSpawn > 0)
 				{
 					spawnParticle(&particles[i]);
 					toSpawn--;
@@ -106,7 +110,12 @@ void NParticle::update(GameManager* game)
 		}
 	}
 
-	//std::cout << "Alive: " << alive << std::endl;
+	if (time > 0.0f && livedSoFar > time)
+	{
+		if (particleCount == 0)
+			destroy();
+	}
+
 }
 
 void NParticle::render(sf::RenderTarget& target, sf::RenderStates states) const
@@ -154,6 +163,7 @@ NParticle::NParticle(std::string name, size_t particles, sf::Texture* tex) : Nod
 	this->angularDrag = 1.0f;
 
 	this->constAccel = sf::Vector2f(0.0f, 9.0f);
+	this->time = -1.0f;
 
 	setZ(-100);
 }
@@ -161,5 +171,4 @@ NParticle::NParticle(std::string name, size_t particles, sf::Texture* tex) : Nod
 
 NParticle::~NParticle()
 {
-
 }

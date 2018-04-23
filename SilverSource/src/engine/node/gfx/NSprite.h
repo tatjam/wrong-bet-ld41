@@ -9,6 +9,8 @@ public:
 
 	sf::Sprite sprite;
 
+	void center();
+
 	virtual void render(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	NSprite(std::string name);

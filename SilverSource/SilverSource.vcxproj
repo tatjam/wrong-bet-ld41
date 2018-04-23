@@ -123,6 +123,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\node\snd\NQuickSound.cpp" />
+    <ClCompile Include="src\ldgame\nodes\NTrack.cpp" />
     <ClCompile Include="src\engine\node\gfx\NTilemap.cpp" />
     <ClCompile Include="src\engine\imgui\imgui-SFML.cpp" />
     <ClCompile Include="src\engine\imgui\imgui.cpp" />
@@ -133,9 +135,22 @@
     <ClCompile Include="src\engine\node\gfx\NSprite.cpp" />
     <ClCompile Include="src\engine\node\Node.cpp" />
     <ClCompile Include="src\engine\util\UtilImpl.cpp" />
+    <ClCompile Include="src\ldgame\nodes\NKart.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\ldgame\facility\Team.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\node\snd\NQuickSound.h" />
+    <ClInclude Include="src\ldgame\GameMenu.h" />
+    <ClInclude Include="src\ldgame\GameRace.h" />
+    <ClInclude Include="src\ldgame\GodAttack.h" />
+    <ClInclude Include="src\ldgame\gui.h" />
+    <ClInclude Include="src\ldgame\nodes\NBullet.h" />
+    <ClInclude Include="src\ldgame\nodes\NFire.h" />
+    <ClInclude Include="src\ldgame\nodes\NFlash.h" />
+    <ClInclude Include="src\ldgame\nodes\NMine.h" />
+    <ClInclude Include="src\ldgame\scenes\SKart.h" />
+    <ClInclude Include="src\ldgame\nodes\NTrack.h" />
     <ClInclude Include="src\engine\node\gfx\NTilemap.h" />
     <ClInclude Include="src\engine\imgui\imconfig.h" />
     <ClInclude Include="src\engine\imgui\imgui-SFML.h" />
@@ -156,6 +171,29 @@
     <ClInclude Include="src\engine\util\RangeValues.h" />
     <ClInclude Include="src\engine\util\StringUtil.h" />
     <ClInclude Include="src\engine\util\VectorUtil.h" />
+    <ClInclude Include="src\ldgame\nodes\NKart.h" />
+    <ClInclude Include="src\ldgame\facility\Team.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\kart0.png" />
+    <Image Include="res\kartwheels.png" />
+    <Image Include="res\particle\explode.png" />
+    <Image Include="res\shadetiles8x8.png" />
+    <Image Include="res\smoke.png" />
+    <Image Include="res\test.png" />
+    <Image Include="res\test2.png" />
+    <Image Include="res\test3.png" />
+    <Image Include="res\track0.png" />
+    <Image Include="res\track2.png" />
+    <Image Include="res\track2c.png" />
+    <Image Include="res\track2o.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\sound\explosion0.wav" />
+    <Media Include="res\test.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\tiles.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

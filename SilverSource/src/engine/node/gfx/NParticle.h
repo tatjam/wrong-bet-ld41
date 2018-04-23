@@ -34,8 +34,12 @@ private:
 	sf::Texture* tex;
 
 	float spawnTimer = 0.0f;
+
+	float livedSoFar = 0.0f;
 	
 public:
+
+	size_t particleCount;
 
 	bool active = true;
 	// Every how many seconds does a particle spawn
@@ -57,6 +61,10 @@ public:
 	float angularDrag;
 
 	sf::Vector2f constAccel;
+
+	// How long will the emitter emit for?
+	// negative for infinity
+	float time;
 
 
 	size_t getMaxParticles() { return maxParticles; }

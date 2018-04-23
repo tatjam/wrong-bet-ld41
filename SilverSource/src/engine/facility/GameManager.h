@@ -45,6 +45,14 @@ private:
 
 	sf::RenderWindow* target;
 
+	bool uiToolbar;
+	bool uiToolbarHeld = false;
+
+	void doUiToolbar();
+
+	bool firstUpdate;
+
+
 public:
 
 	AssetManager assets;
