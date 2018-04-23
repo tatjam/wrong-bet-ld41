@@ -122,8 +122,12 @@ void NKart::applyForce(sf::Vector2f pos, float power)
 	speed += force;
 
 	//std::cout << "pre: " << health;
-
-	health -= (power * 20.0f) / (dist / 16.0f);
+	if (dist <= 1200.0f)
+	{
+		health -= (power * 20.0f) / (dist / 16.0f);
+		//health -= 1000.0f;
+	}
+	
 
 	//std::cout << "post: " << health << std::endl;
 }

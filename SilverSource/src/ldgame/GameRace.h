@@ -85,7 +85,7 @@ public:
 			zoomSpeed *= 2.0f;
 		}
 
-		if (delta > 0)
+		if (delta < 0)
 		{
 			game->view.zoom(1.0f + zoomSpeed * game->dt);
 		}
